@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Petal & Bean Cafe</title>
+
+<style>
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: Georgia, 'Times New Roman', serif;
+    color: #4a3b34;       
+    background-color: #fdf8f2; 
+    line-height: 1.6;
+  }
+
+  h1, h2, h3 {
+    font-family: Georgia, serif;
+    color: #4a3b34;
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .navbar {
+    background-color: #fdf8f2;
+    border-bottom: 2px solid #f0dcd4;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  .navbar .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+
+  .logo {
+    font-size: 30px;
+    font-weight: bold;
+    color: #c96a6b;
+  }
+
+  .nav-links {
+    display: flex;
+    list-style: none;
+    gap: 25px;
+  }
+
+  .nav-links a {
+    font-weight: bold;
+  }
+
+  .nav-links a:hover {
+    color: #c96a6b;
+  }
+
+  .menu-toggle {
+    display: none;
+    font-size: 28px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #4a3b34;
+  }
+
+  .hero {
+    text-align: center;
+    padding: 80px 20px;
+    background-color: #f6e9de;
+  }
+
+  .hero h1 {
+    font-size: 42px;
+    margin-bottom: 20px;
+  }
+
+  .hero p {
+    font-size: 18px;
+    max-width: 500px;
+    margin: 0 auto 30px auto;
+    color: #6b5c53;
+  }
+
+  .btn {
+    display: inline-block;
+    background-color: #c96a6b;
+    color: white;
+    padding: 14px 30px;
+    border-radius: 30px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  .btn:hover {
+    background-color: #a95455;
+  }
+
+  .menu {
+    padding: 70px 20px;
+  }
+
+  .menu h2 {
+    text-align: center;
+    font-size: 32px;
+    margin-bottom: 10px;
+  }
+
+  .menu > .container > p {
+    text-align: center;
+    color: #6b5c53;
+    margin-bottom: 40px;
+  }
+
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+  }
+
+  .menu-img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    transition: 0.4s ease;
+  }
+
+  .menu-card {
+    background-color: #fff;
+    border: 1px solid #f0dcd4;
+    border-radius: 12px;
+    padding: 25px;
+    text-align: center;
+    overflow: hidden;
+    transition: 0.3s ease;
+  }
+
+  .menu-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.12);
+  }
+
+  .menu-card:hover .menu-img {
+    transform: scale(1.05);
+  }
+
+  .menu-card h3 {
+    font-size: 20px;
+    margin-bottom: 8px;
+  }
+
+  .menu-card p {
+    color: #6b5c53;
+    font-size: 14px;
+    margin-bottom: 12px;
+  }
+
+  .old-price {
+    text-decoration: line-through;
+    color: #999;
+    font-size: 0.9rem;
+  }
+
+  .new-price {
+    color: #A47148;
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  .menu-card .price {
+    color: #A47148;
+    font-size: 1.7rem;
+    font-weight: bold;
+  }
+
+  .free-badge {
+    display: inline-block;
+    background-color: #6b8f66;
+    color: #fff;
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .about {
+    background-color: #f6e9de;
+    padding: 70px 20px;
+    text-align: center;
+  }
+
+  .about h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+  }
+
+  .about p {
+    max-width: 600px;
+    margin: 0 auto;
+    color: #6b5c53;
+  }
+
+  .contact {
+    padding: 70px 20px;
+    text-align: center;
+  }
+
+  .contact h2 {
+    font-size: 32px;
+    margin-bottom: 10px;
+  }
+
+  .contact p {
+    color: #6b5c53;
+    margin-bottom: 25px;
+  }
+
+  .contact form {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .contact input {
+    padding: 12px 18px;
+    border-radius: 30px;
+    border: 2px solid #f0dcd4;
+    font-size: 15px;
+    width: 260px;
+    max-width: 100%;
+  }
+
+  .form-message {
+    margin-top: 15px;
+    font-weight: bold;
+    color: #6b8f66;
+    min-height: 20px;
+  }
+
+  footer {
+    background-color: #4a3b34;
+    color: #f6e9de;
+    text-align: center;
+    padding: 30px 20px;
+    font-size: 14px;
+  }
+
+  #backToTop {
+    display: none;
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    background-color: #c96a6b;
+    color: white;
+    border: none;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    font-size: 20px;
+    cursor: pointer;
+  }
+
+  @media (max-width: 700px) {
+    .nav-links {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background-color: #fdf8f2;
+      padding: 20px;
+      border-bottom: 2px solid #f0dcd4;
+    }
+
+    .nav-links.show-menu {
+      display: flex;
+    }
+
+    .menu-toggle {
+      display: block;
+    }
+
+    .hero h1 {
+      font-size: 30px;
+    }
+
+    .menu-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="container">
+      <a href="#top" class="logo">Petal &amp; Bean</a>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+
+      <button class="menu-toggle" id="menuToggle">&#9776;</button>
+    </div>
+  </header>
+
+  <section class="hero" id="top">
+    <h1>Coffee, Pastries &amp; a Little Bit of Bloom</h1>
+    <p>A cozy neighborhood cafe serving fresh coffee and pastries every morning, with flowers on every table.</p>
+    <button class="btn" id="viewMenuBtn">View Our Menu</button>
+  </section>
+
+  <section class="menu" id="menu">
+    <div class="container">
+      <h2>Our Menu</h2>
+      <p>A few of our favorites</p>
+
+      <div class="menu-grid">
+
+        <div class="menu-card">
+          <img src="images/rose-vanilla-latte.jfif" alt="Rose Vanilla Latte" class="menu-img">
+          <h3>Rose Vanilla Latte</h3>
+          <p>Espresso, steamed milk, rosewater and vanilla bean.</p>
+          <div class="price">
+            <span class="old-price">&#8377;550</span>
+            <span class="new-price">&#8377;399</span>
+          </div>
+        </div>
+
+        <div class="menu-card">
+          <img src="images/butter-croissant.jfif" alt="Butter Croissant" class="menu-img">
+          <h3>Butter Croissant</h3>
+          <p>Fresh baked every morning, warm and flaky.</p>
+          <div class="price">
+            <span class="old-price">&#8377;499</span>
+            <span class="new-price">&#8377;399</span>
+          </div>
+        </div>
+
+        <div class="menu-card">
+          <img src="images/wild-berry-muffin.jfif" alt="Wild Berry Muffin" class="menu-img">
+          <h3>Wild Berry Muffin</h3>
+          <p>Made with whatever berries look best at the market.</p>
+          <div class="price">
+            <span class="old-price">&#8377;350</span>
+            <span class="new-price">&#8377;250</span>
+          </div>
+        </div>
+
+        <div class="menu-card">
+          <img src="images/lavender-vanilla-bean-latte.jfif" alt="Lavender Vanilla Bean Latte" class="menu-img">
+          <h3>Lavender Vanilla Bean Latte</h3>
+          <p>Steeped for 18 hours with a hint of lavender syrup.</p>
+          <div class="price">
+            <span class="old-price">&#8377;550</span>
+            <span class="new-price">&#8377;399</span>
+          </div>
+        </div>
+
+        <div class="menu-card">
+          <img src="images/cinnamon-bun.jfif" alt="Cinnamon Bun" class="menu-img">
+          <h3>Cinnamon Bun</h3>
+          <p>Soft, gooey, topped with brown butter icing.</p>
+          <div class="price">
+            <span class="old-price">&#8377;300</span>
+            <span class="new-price">&#8377;250</span>
+          </div>
+        </div>
+
+        <div class="menu-card">
+          <img src="images/espresso.jfif" alt="Classic Espresso" class="menu-img">
+          <h3>Classic Espresso</h3>
+          <p>Freshly brewed espresso made from roasted coffee beans.</p>
+          <div class="price">
+            <span class="old-price">&#8377;400</span>
+            <span class="new-price">&#8377;350</span>
+          </div>
+        </div>
+
+        <div class="menu-card">
+          <img src="images/iced-vanilla-latte.jfif" alt="Iced Vanilla Latte" class="menu-img">
+          <h3>Iced Vanilla Latte</h3>
+          <p>Refreshing espresso poured over ice with creamy milk and sweet vanilla.</p>
+          <div class="price">
+            <span class="old-price">&#8377;500</span>
+            <span class="new-price">&#8377;450</span>
+          </div>
+        </div>
+
+        <div class="menu-card">
+          <img src="images/mango-smoothie.jfif" alt="Mango Smoothie" class="menu-img">
+          <h3>Mango Smoothie</h3>
+          <p>Creamy mango smoothie made with ripe tropical mangoes and yogurt.</p>
+          <div class="price">
+            <span class="old-price">&#8377;500</span>
+            <span class="new-price">&#8377;450</span>
+          </div>
+        </div>
+
+        <div class="menu-card">
+          <img src="images/flower.jfif" alt="Add a Flower" class="menu-img">
+          <h3>Add a Flower</h3>
+          <p>Add a fresh flower to any order, on the house.</p>
+          <div>
+            <span class="free-badge">On The House</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="about" id="about">
+    <div class="container">
+      <h2>Our Story</h2>
+      <p>Petal &amp; Bean started as a small flower stand on the corner of 5th and Birch. So many regulars
+        asked for coffee that in 2019, we added an espresso bar right next to the flower counter.
+        We still buy blooms from the same growers we started with, and every cup comes with a little
+        flower tucked into the sleeve — just because.</p>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <div class="container">
+      <h2>Stay in the Loop</h2>
+      <p>Sign up for weekly specials and new seasonal drinks.</p>
+
+      <form id="newsletterForm">
+        <input type="email" id="emailInput" placeholder="you@email.com" required>
+        <button type="submit" class="btn">Subscribe</button>
+      </form>
+
+      <p class="form-message" id="formMessage"></p>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2026 Petal &amp; Bean Cafe. 214 Birch Street.</p>
+  </footer>
+
+  <button id="backToTop" title="Back to top">&#8593;</button>
+
+  <script>
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+
+    menuToggle.addEventListener('click', function () {
+      navLinks.classList.toggle('show-menu');
+    });
+
+    const allNavLinks = navLinks.querySelectorAll('a');
+    allNavLinks.forEach(function (link) {
+      link.addEventListener('click', function () {
+        navLinks.classList.remove('show-menu');
+      });
+    });
+
+    const viewMenuBtn = document.getElementById('viewMenuBtn');
+    const menuSection = document.getElementById('menu');
+
+    viewMenuBtn.addEventListener('click', function () {
+      menuSection.scrollIntoView({ behavior: 'smooth' });
+    });
+
+    const newsletterForm = document.getElementById('newsletterForm');
+    const formMessage = document.getElementById('formMessage');
+
+    newsletterForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+      
+// Clicking this button scrolls smoothly back to the top
+      formMessage.textContent = "You're subscribed! Thanks for joining us.";
+      formMessage.style.color = '#6b8f66';
+      newsletterForm.reset();
+    });
+
+    const backToTopBtn = document.getElementById('backToTop');
+
+    window.addEventListener('scroll', function () {
+      if (window.scrollY > 300) {
+        backToTopBtn.style.display = 'block';
+      } else {
+        backToTopBtn.style.display = 'none';
+      }
+    });
+
+    backToTopBtn.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+
+</body>
+</html>
